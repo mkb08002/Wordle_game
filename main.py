@@ -11,18 +11,17 @@ def pick_random_word(length_num):
 def main():
     # user input to select length of word (3-5)
 
-    word_length = input("Select a word length by typing 3, 4, or 5: ")
-    print(word_length)
+    valid_input = 'invalid'
 
-    # valid_input = 'invalid'
+    while valid_input == 'invalid':
+        word_length = input("Select a word length by typing 3, 4, or 5: ")
 
-    # while valid_input is 'invalid':
-    #     if (len(word_length.strip()) == 0) or isinstance(word_length, str):
-    #         print("Please provide a valid entry")
-    #         valid_input = 'invalid'
-    #     else:
-    #         valid_input = 'valid'
-    #         pick_random_word(int(word_length))
+        if (len(word_length.strip()) == 0) or not word_length.isnumeric() or (int(word_length) < 3) or (int(word_length) > 5):
+            print("Please provide a valid entry")
+            valid_input = 'invalid'
+        else:
+            valid_input = 'valid'
+            pick_random_word(int(word_length))
 
 
 
