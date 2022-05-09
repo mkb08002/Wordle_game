@@ -15,33 +15,31 @@ def you_win():
 
 def validation(word, word_length):
     word_validation = word.strip()
-    # length = word_length
-    # valid = 'invalid'
+    length = word_length
+    valid = 'invalid'
+    letters = [char for char in word_validation]
 
-    # while valid == 'invalid':
-    #     letters = [char for char in word_validation]
-    #     if not word_validation.isnumeric() and len(letters) == length:
-    #         valid = 'valid'
+    if valid == 'invalid' and not word_validation.isnumeric() and len(letters) == length:
+            valid = 'valid'
     
-    # return valid
+    print('passing through validation', word_validation, length, valid)
+
+    return valid
 
 
 def begin_guessing(word_letters, word, word_length):
     print('Time to submit your guesses!')
-    guess = ''
+
     guess = input('What is your guess? ')
 
     # if guess is incorrect, add to incorrect guesses list and provide any correct letters
     
-    if validation(guess, word_length) == 'invalid':
-        while validation(guess, word_length) == 'invalid':
-            guess = input('Please provide a valid guess? ')
-            validation(guess, word_length)
-    else:
-        print('made it as far as word and one guess validation')
-        print('word', word, word_letters)
-        print('guess', guess, guess_letters)
-        print('word length', str(word_length))
+
+    while validation(guess, word_length) == 'invalid':
+        guess = input('Please provide a valid guess? ')
+        validation(guess, word_length)
+    
+    print('made it as far as word and guess validation')
     
 
 
@@ -50,12 +48,14 @@ def pick_random_word(word_length):
     # confirm valid selection of random word
     length = word_length
     word = random.choice(words_list)
-    if validation(word, length) == 'invalid':
-        while validation(word, length) == 'invalid':
-            word = random.choice(words_list)
-            validation(word, length)
-    else:    
-        word_letters = [char for char in word]
+
+    while validation(word, length) == 'invalid':
+        word = random.choice(words_list)
+        validation(word, length)
+    
+    word_letters = [char for char in word]
+
+    print('passing through random word pick', word, length)
 
     begin_guessing(word_letters, word, length)
 
@@ -74,6 +74,7 @@ def main():
         else:
             valid_input = 'valid'
             word_length = int(word_length)
+            print('passing through main word length', word_length)
             pick_random_word(word_length)
     
 
