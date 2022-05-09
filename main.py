@@ -1,12 +1,26 @@
 # WORDLE game
+import random
 
 # list of words of varying length
 with open('words.txt') as file:
     words_list = file.read().splitlines()
 
+
+def begin_guessing(word):
+    pass
+
 # random selection of word by length
-def pick_random_word(length_num):
-    print('next step')
+def pick_random_word(word_length):
+    word_valid = 'invalid'
+
+    # confirm valid selection of random word
+    while word_valid == 'invalid':
+        word = random.choice(words_list)
+        letters = [char for char in word]
+        if len(letters) == word_length:
+            word_valid = 'valid'
+
+    begin_guessing(word)
 
 def main():
     # user input to select length of word (3-5)
@@ -21,7 +35,10 @@ def main():
             valid_input = 'invalid'
         else:
             valid_input = 'valid'
-            pick_random_word(int(word_length))
+            word_length = int(word_length)
+            pick_random_word(word_length)
+    
+
 
 
 
