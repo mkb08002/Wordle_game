@@ -100,11 +100,4 @@ def main():
             pick_random_word(word_length)
     
 
-# break down selected word and input word
-# mark correct/incorrect for individual letters
-# provide results back to user i.e. [selected: CORE] [input: CURT] [result: C_R_] 
-# provide prompt to see previous guesses (list format)
-# prompt to user continues until word is guessed correctly
-# count number of guesses/restrict based on number of guesses 
-
 main()
