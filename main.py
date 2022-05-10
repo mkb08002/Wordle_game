@@ -23,7 +23,7 @@ def begin_guessing(letters, word_to_guess, word_length):
     word = word_to_guess
     solution = []
     total_guesses = []
-    # available_letters = []
+    available_letters = []
     num_guesses = 0
   
 
@@ -35,7 +35,8 @@ def begin_guessing(letters, word_to_guess, word_length):
             validation(guess, word_length)
         
         guess_letters = [char for char in guess]
-
+        
+        # filling in the solution
         if len(solution) == 0:
             for i in range(len(guess_letters)):
                 if guess_letters[i] == word_letters[i]:
@@ -53,12 +54,12 @@ def begin_guessing(letters, word_to_guess, word_length):
             total_guesses.append(guess)
             num_guesses += 1
 
-# how to provide available letters that weren't in correct index        
-        # for i in range(len(guess_letters)):
-        #     if guess_letters[i] in word_letters and not available_letters:
-        #         available_letters.append(guess_letters[i])
+        # provide available letters that weren't in correct index        
+        for i in range(len(guess_letters)):
+            if guess_letters[i] in word_letters and guess_letters[i] not in available_letters:
+                available_letters.append(guess_letters[i])
 
-        # print("available letters", available_letters)
+        print("available letters", available_letters)
 
         print("total guesses", total_guesses)
         print(' '.join(solution))
@@ -78,7 +79,7 @@ def pick_random_word(word_length):
         validation(word, length)
     
     word_letters = [char for char in word]
-    print("the random word is", word)
+    # print("the random word is", word)
     begin_guessing(word_letters, word, length)
 
 
