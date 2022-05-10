@@ -6,6 +6,7 @@ with open('words.txt') as file:
     words_list = file.read().splitlines()
 
 
+# validation of word and guess
 def validation(word, word_length):
     word_validation = word.strip()
     length = word_length
@@ -79,7 +80,7 @@ def pick_random_word(word_length):
         validation(word, length)
     
     word_letters = [char for char in word]
-    # print("the random word is", word)
+
     begin_guessing(word_letters, word, length)
 
 
