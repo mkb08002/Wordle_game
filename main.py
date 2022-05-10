@@ -2,9 +2,14 @@
 import random
 
 # list of words of varying length
-with open('words.txt') as file:
-    words_list = file.read().splitlines()
+# with open('words.txt') as file:
+#     words_list = file.read().splitlines()
 
+from english_words import english_words_lower_set
+
+words_list = []
+for word in english_words_lower_set:
+    words_list.append(word)
 
 # validation of word and guess
 def validation(word, word_length):
@@ -30,9 +35,11 @@ def begin_guessing(letters, word_to_guess, word_length):
 
     while ''.join(solution) != word:
         guess = input('What is your guess? ')
+        guess = guess.lower()
 
         while validation(guess, word_length) == 'invalid':
             guess = input('Please provide a valid guess: ')
+            guess = guess.lower()
             validation(guess, word_length)
         
         guess_letters = [char for char in guess]
@@ -81,6 +88,7 @@ def pick_random_word(word_length):
     
     word_letters = [char for char in word]
 
+    print(word)
     begin_guessing(word_letters, word, length)
 
 
@@ -90,9 +98,9 @@ def main():
     valid_input = 'invalid'
 
     while valid_input == 'invalid':
-        word_length = input("Select a word length by typing 3, 4, or 5: ")
+        word_length = input("Select a word length: ")
 
-        if (len(word_length.strip()) == 0) or not word_length.isnumeric() or (int(word_length) < 3) or (int(word_length) > 5):
+        if (len(word_length.strip()) == 0) or not word_length.isnumeric():
             print("Please provide a valid entry")
             valid_input = 'invalid'
         else:
