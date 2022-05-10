@@ -5,13 +5,6 @@ import random
 with open('words.txt') as file:
     words_list = file.read().splitlines()
 
-guess_letters = []
-word_letters = []
-incorrect_guesses = []
-
-def you_win():
-    pass
-
 
 def validation(word, word_length):
     word_validation = word.strip()
@@ -21,26 +14,57 @@ def validation(word, word_length):
 
     if valid == 'invalid' and not word_validation.isnumeric() and len(letters) == length:
             valid = 'valid'
-    
-    print('passing through validation', word_validation, length, valid)
 
     return valid
 
 
-def begin_guessing(word_letters, word, word_length):
-    print('Time to submit your guesses!')
+def begin_guessing(letters, word_to_guess, word_length):
+    word_letters = letters
+    word = word_to_guess
+    solution = []
+    total_guesses = []
+    # available_letters = []
+    num_guesses = 0
+  
 
-    guess = input('What is your guess? ')
+    while ''.join(solution) != word:
+        guess = input('What is your guess? ')
 
-    # if guess is incorrect, add to incorrect guesses list and provide any correct letters
-    
+        while validation(guess, word_length) == 'invalid':
+            guess = input('Please provide a valid guess: ')
+            validation(guess, word_length)
+        
+        guess_letters = [char for char in guess]
 
-    while validation(guess, word_length) == 'invalid':
-        guess = input('Please provide a valid guess? ')
-        validation(guess, word_length)
-    
-    print('made it as far as word and guess validation')
-    
+        if len(solution) == 0:
+            for i in range(len(guess_letters)):
+                if guess_letters[i] == word_letters[i]:
+                    solution.append(guess_letters[i])
+                elif guess_letters[i] != word_letters[i]:
+                    solution.append('_')
+            total_guesses.append(guess)
+            num_guesses += 1
+        else:
+            for i in range(len(guess_letters)):
+                if guess_letters[i] == word_letters[i]:
+                    solution[i] = guess_letters[i]
+                elif guess_letters[i] != word_letters[i]:
+                    solution[i] = '_'
+            total_guesses.append(guess)
+            num_guesses += 1
+
+# how to provide available letters that weren't in correct index        
+        # for i in range(len(guess_letters)):
+        #     if guess_letters[i] in word_letters and not available_letters:
+        #         available_letters.append(guess_letters[i])
+
+        # print("available letters", available_letters)
+
+        print("total guesses", total_guesses)
+        print(' '.join(solution))
+
+    if ''.join(solution) == word:
+        print("Congrats! You guessed the word in", num_guesses, "guesses!")
 
 
 # random selection of word by length
@@ -54,9 +78,7 @@ def pick_random_word(word_length):
         validation(word, length)
     
     word_letters = [char for char in word]
-
-    print('passing through random word pick', word, length)
-
+    print("the random word is", word)
     begin_guessing(word_letters, word, length)
 
 
@@ -74,7 +96,6 @@ def main():
         else:
             valid_input = 'valid'
             word_length = int(word_length)
-            print('passing through main word length', word_length)
             pick_random_word(word_length)
     
 
